@@ -1,0 +1,20 @@
+{
+  "name": "mev-module",
+  "version": "0.0.1",
+  "authors": [
+    "jfarid27 <jrab227@gmail.com>"
+  ],
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "target"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.15"
+  }
+}
