@@ -115,11 +115,11 @@ var requireTestConfigBuilder = function (gulp) {
         gutil.log("Creating require test.")
         fs.readFile('./target/require.shims', function (err, data) {
             if (!err) {
-           
+
                 gutil.log("No error in reading require shims.")
- 
-                var bowerJson = require('.bower.json')
-                var bowerShims = "shim:" +JSON.stringify(bowerJson.shim) + ","
+
+                var bowerJson = require('./bower.json')
+                var bowerShims = "shim:" + JSON.stringify(bowerJson.shim) + ","
                 var buffer = new Buffer(head + data.toString() + bowerShims + footer)
                 mkdirp('./target', {}, function () {
                     gutil.log("Writing test main.")
@@ -235,7 +235,7 @@ function karmaConfig() {
 
         preprocessors: {},
 
-        reporters: ['dots'],
+        reporters: ['mocha'],
 
         // web server port
         port: 3000,
