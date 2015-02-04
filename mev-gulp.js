@@ -256,9 +256,11 @@ function recursePkgMain(package) {
 
     var deps = pkgMeta.dependencies ? Object.keys(pkgMeta.dependencies) : undefined
 
+    var devDeps = pkgMeta.devDependencies ? Object.keys(pkgMeta.devDependencies) : undefined
+
     var localMains = []
 
-
+    //Add packages to local mains for each dependency
     for (index in deps) {
 
         var key = deps[index]
@@ -270,8 +272,9 @@ function recursePkgMain(package) {
                 package: key,
                 shim: package.dependencies[key].pkgMeta.shim ? package.dependencies[key].pkgMeta.shim : undefined
             }
-            localMains
-                .push(localMain)
+
+            localMains.push(localMain)
+
         } else {
 
             var currentMeta = package.dependencies[key].pkgMeta
@@ -301,17 +304,48 @@ function recursePkgMain(package) {
         }
     }
 
+    //Add packages to local mains for each dev dependency
+    for (index in devDeps) {
 
+        var key = devDeps[index]
 
+        var currentMeta = package.dependencies[key].pkgMeta
+
+        var localMain = {}
+
+        if (typeof currentMeta['main'] != 'undefined'){
+
+            var cleanMain = (currentMeta.main.indexOf('./') >= 0) ?
+                currentMeta.main.split('./')[1] : currentMeta.main
+
+            localMain = {
+                main: key + '/' + cleanMain.split('.js')[0],
+                package: key,
+                shim: undefined
+            }
+
+        } else {
+            localMain = {
+                main: key + '/' + 'js/' + currentMeta.name,
+                package: key,
+                shim: undefined
+            }
+        }
+
+        localMains.push(localMain)
+
+    }
+
+    //Recursion step for each sub package
     if (localMains.length > 0) {
+
         var fullMains = localMains
 
         for (index in localMains) {
 
             var subPackage = package.dependencies[localMains[index].package]
 
-            fullmains = fullMains
-                .concat(recursePkgMain(subPackage))
+            fullmains = fullMains.concat(recursePkgMain(subPackage))
         }
 
         return fullMains

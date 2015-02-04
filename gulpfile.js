@@ -27,7 +27,7 @@ gulp.task('loadBower', function(done){
     });
 })
 
-gulp.task('targetBower',['loadBower'], function(done){ 
+gulp.task('targetBower',[], function(done){
     //Loads bower files in specified local directory
 
     gulp.src(["bower_components/**/*.js"])
@@ -90,4 +90,4 @@ gulp.task('clean', function (cb) {
     ], cb);
 });
 
-gulp.task('generateShimsPaths',['loadBower'], mev.require.generateShims)
+gulp.task('generateShimsPaths',[], mev.require.generateShims)
