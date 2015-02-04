@@ -40,7 +40,7 @@ gulp.task('targetBower',[], function(done){
 gulp.task('karmaConfig', mev.karma)
 
 gulp.task('requireTestConfig', ['targetBower', 'generateTarget', 'generateShimsPaths'], mev.require.test);
-gulp.task('requireProdConfig', ['targetBower'], mev.require.production);
+gulp.task('requireProdConfig', ['targetBower', 'generateTarget', 'generateShimsPaths'], mev.require.production);
 
 gulp.task('prepare',['karmaConfig', 'requireTestConfig'], function(){ 
     return
