@@ -1,5 +1,5 @@
 {
-  "name": "mev-common-domain",
+  "name": "mev-module",
   "version": "0.0.1",
   "description": "",
   "devDependencies": {
